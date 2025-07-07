@@ -169,10 +169,10 @@ class TradingSystem:
         """Start the trading system"""
         logging.info("Starting trading system...")
         
-        # Schedule trading scans every 5 minutes
-        logging.info("Scheduling trading scans...")
+        # Schedule trading scans based on configured interval
+        logging.info(f"Scheduling trading scans every {Config.SCAN_INTERVAL_MINUTES} minutes...")
         start_time = time.time()
-        schedule.every(5).minutes.do(self.scan_and_trade)
+        schedule.every(Config.SCAN_INTERVAL_MINUTES).minutes.do(self.scan_and_trade)
         logging.info(f"Trading scans scheduled in {time.time() - start_time:.2f} seconds.")
         
         # Schedule force exit at 3:15 PM

@@ -16,6 +16,7 @@ class Config:
     RISK_PER_TRADE = float(os.getenv('RISK_PER_TRADE', 0.02))
     MAX_POSITIONS = int(os.getenv('MAX_POSITIONS', 3))
     MOCK_TRADING = os.getenv('MOCK_TRADING', 'True').lower() == 'true'
+    SCAN_INTERVAL_MINUTES = int(os.getenv('SCAN_INTERVAL_MINUTES', 5))
     
     # Strategy Configuration
     FAST_EMA_PERIOD = 9
