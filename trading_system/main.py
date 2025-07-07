@@ -45,8 +45,12 @@ class TradingSystem:
     def is_market_open(self):
         """Check if market is open"""
         now = datetime.now().time()
-        market_open = dt_time(9, 15)  # 9:15 AM
-        market_close = dt_time(15, 30)  # 3:30 PM
+        open_time_hour = Config.MARKET_OPEN_HOUR
+        open_time_minute = Config.MARKET_OPEN_MINUTE
+        close_time_hour = Config.MARKET_CLOSE_HOUR
+        close_time_minute = Config.MARKET_CLOSE_MINUTE
+        market_open = dt_time(open_time_hour, open_time_minute)  # 9:15 AM
+        market_close = dt_time(close_time_hour, close_time_minute)  # 3:30 PM
         
         return market_open <= now <= market_close
     
