@@ -24,7 +24,16 @@ def setup_initial_logging():
     logging.info("TRADING SYSTEM STARTUP")
     logging.info("=" * 50)
     logging.info(f"Scan Interval: {Config.SCAN_INTERVAL_MINUTES} minutes")
-    logging.info(f"Mock Trading: {Config.MOCK_TRADING}")
+    
+    # Enhanced mock trading status logging
+    if Config.MOCK_TRADING:
+        logging.info(f"Mock Trading: {Config.MOCK_TRADING} ⚠️  [MARKET ALWAYS CONSIDERED OPEN]")
+        logging.info("⚠️  No real orders will be placed - simulation mode only")
+    else:
+        logging.info(f"Mock Trading: {Config.MOCK_TRADING} 🔴 [LIVE TRADING MODE]")
+        logging.info(f"🔴 Market Hours: {Config.MARKET_OPEN_HOUR:02d}:{Config.MARKET_OPEN_MINUTE:02d} - {Config.MARKET_CLOSE_HOUR:02d}:{Config.MARKET_CLOSE_MINUTE:02d}")
+        logging.info("🔴 REAL MONEY AT RISK - Orders will be placed on live market")
+    
     logging.info(f"Capital: ${Config.CAPITAL:,.2f}")
     logging.info(f"Max Positions: {Config.MAX_POSITIONS}")
     logging.info("-" * 50)

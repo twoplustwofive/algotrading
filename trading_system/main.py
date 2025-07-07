@@ -44,6 +44,12 @@ class TradingSystem:
         
     def is_market_open(self):
         """Check if market is open"""
+        # In mock trading mode, always consider market as open
+        if Config.MOCK_TRADING:
+            logging.debug("Mock trading enabled - market considered open")
+            return True
+        
+        # For live trading, check actual market hours
         now = datetime.now().time()
         open_time_hour = Config.MARKET_OPEN_HOUR
         open_time_minute = Config.MARKET_OPEN_MINUTE
@@ -57,10 +63,24 @@ class TradingSystem:
     def scan_and_trade(self):
         """Main trading logic"""
         if not self.is_market_open():
-            logging.info("Market is closed")
+            if Config.MOCK_TRADING:
+                logging.info("Market is closed - but mock trading would continue if market hours were extended")
+            else:
+                logging.info("Market is closed")
             return
         
-        logging.info("Scanning watchlist for opportunities...")
+        # Log trading mode context
+        if Config.MOCK_TRADING:
+            now = datetime.now().time()
+            market_open = dt_time(Config.MARKET_OPEN_HOUR, Config.MARKET_OPEN_MINUTE)
+            market_close = dt_time(Config.MARKET_CLOSE_HOUR, Config.MARKET_CLOSE_MINUTE)
+            
+            if market_open <= now <= market_close:
+                logging.info("Scanning watchlist for opportunities... [MOCK TRADING - Normal Market Hours]")
+            else:
+                logging.info("Scanning watchlist for opportunities... [MOCK TRADING - Outside Market Hours]")
+        else:
+            logging.info("Scanning watchlist for opportunities... [LIVE TRADING]")
         
         for symbol in Config.WATCHLIST:
             try:
