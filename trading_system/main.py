@@ -12,12 +12,35 @@ from .config import Config
 
 class TradingSystem:
     def __init__(self):
+        logging.info("Initializing TradingSystem...")
+        
+        logging.info("Initializing ZerodhaClient...")
+        start_time = time.time()
         self.kite = ZerodhaClient()
+        logging.info(f"ZerodhaClient initialized in {time.time() - start_time:.2f} seconds.")
+        
+        logging.info("Initializing EMAStrategy...")
+        start_time = time.time()
         self.strategy = EMAStrategy()
+        logging.info(f"EMAStrategy initialized in {time.time() - start_time:.2f} seconds.")
+        
+        logging.info("Initializing RiskManager...")
+        start_time = time.time()
         self.risk_manager = RiskManager()
+        logging.info(f"RiskManager initialized in {time.time() - start_time:.2f} seconds.")
+        
+        logging.info("Initializing TradingLogger...")
+        start_time = time.time()
         self.logger = TradingLogger()
+        logging.info(f"TradingLogger initialized in {time.time() - start_time:.2f} seconds.")
+        
+        logging.info("Initializing TelegramBot...")
+        start_time = time.time()
         self.telegram = TelegramBot()
+        logging.info(f"TelegramBot initialized in {time.time() - start_time:.2f} seconds.")
+        
         self.running = False
+        logging.info("TradingSystem initialization complete.")
         
     def is_market_open(self):
         """Check if market is open"""
@@ -143,15 +166,25 @@ class TradingSystem:
         logging.info("Starting trading system...")
         
         # Schedule trading scans every 5 minutes
+        logging.info("Scheduling trading scans...")
+        start_time = time.time()
         schedule.every(5).minutes.do(self.scan_and_trade)
+        logging.info(f"Trading scans scheduled in {time.time() - start_time:.2f} seconds.")
         
         # Schedule force exit at 3:15 PM
+        logging.info("Scheduling force exit...")
+        start_time = time.time()
         schedule.every().day.at("15:15").do(self.force_exit_all_positions)
+        logging.info(f"Force exit scheduled in {time.time() - start_time:.2f} seconds.")
         
         # Send startup message
+        logging.info("Sending startup message...")
+        start_time = time.time()
         self.telegram.send_message("🚀 Trading System Started")
+        logging.info(f"Startup message sent in {time.time() - start_time:.2f} seconds.")
         
         self.running = True
+        logging.info("Trading system started. Entering main loop...")
         
         # Main loop
         while self.running:

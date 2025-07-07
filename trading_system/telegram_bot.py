@@ -21,7 +21,7 @@ class TelegramBot:
                 'chat_id': self.chat_id,
                 'text': message
             }
-            response = requests.post(url, data=data)
+            response = requests.post(url, data=data, timeout=10)
             
             if response.status_code == 200:
                 logging.info("Telegram message sent successfully")
