@@ -37,7 +37,7 @@ class Config:
     TRADES_FILE = 'logs/trades.csv' 
 
     # Market Open and Close Times
-    MARKET_OPEN_HOUR = int(os.getenv('MARKET_OPEN_HOUR', 9))
+    MARKET_OPEN_HOUR = int(os.getenv('MARKET_OPEN_HOUR', 1))
     MARKET_OPEN_MINUTE = int(os.getenv('MARKET_OPEN_MINUTE', 15))
     MARKET_CLOSE_HOUR = int(os.getenv('MARKET_CLOSE_HOUR', 15))
     MARKET_CLOSE_MINUTE = int(os.getenv('MARKET_CLOSE_MINUTE', 30))
