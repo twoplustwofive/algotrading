@@ -25,7 +25,6 @@ def setup_initial_logging():
     logging.info("=" * 50)
     logging.info(f"Scan Interval: {Config.SCAN_INTERVAL_MINUTES} minutes")
     logging.info(f"Mock Trading: {Config.MOCK_TRADING}")
-    logging.info(f"Market Open Hour: {Config.MARKET_OPEN_HOUR}")
     logging.info(f"Capital: ${Config.CAPITAL:,.2f}")
     logging.info(f"Max Positions: {Config.MAX_POSITIONS}")
     logging.info("-" * 50)
